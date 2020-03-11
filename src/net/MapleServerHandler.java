@@ -180,6 +180,7 @@ public class MapleServerHandler extends IoHandlerAdapter {
     public void sessionClosed(IoSession session) throws Exception {
         closeMapleSession(session);
         super.sessionClosed(session);
+        FilePrinter.print(FilePrinter.SESSION, "IoSession with " + session.getRemoteAddress() + " closed on " + sdf.format(Calendar.getInstance().getTime()), false);
     }
 
     @Override

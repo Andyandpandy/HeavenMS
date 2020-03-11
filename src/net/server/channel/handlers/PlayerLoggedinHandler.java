@@ -110,6 +110,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
             try {
                 World wserv = server.getWorld(c.getWorld());
                 if(wserv == null) {
+                    FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + " failed to find call getWorld ", false);
                     c.disconnect(true, false);
                     return;
                 }
@@ -120,6 +121,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                     cserv = wserv.getChannel(c.getChannel());
 
                     if(cserv == null) {
+                        FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + " failed to find call getChannel ", false);
                         c.disconnect(true, false);
                         return;
                     }
@@ -132,6 +134,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                 if (player == null) {
                     remoteHwid = MapleSessionCoordinator.getInstance().pickLoginSessionHwid(session);
                     if (remoteHwid == null) {
+                        FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + " failed to find call MapleSession ", false);
                         c.disconnect(true, false);
                         return;
                     }
@@ -145,6 +148,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                 c.setHWID(remoteHwid);
                 
                 if (!server.validateCharacteridInTransition(c, cid)) {
+                    FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + " failed to validateCharacterInTransition", false);
                     c.disconnect(true, false);
                     return;
                 }
@@ -159,6 +163,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                     }
                     
                     if (player == null) { //If you are still getting null here then please just uninstall the game >.>, we dont need you fucking with the logs
+                        FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + "player not found from DB", false);
                         c.disconnect(true, false);
                         return;
                     }
@@ -193,6 +198,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                             c.setAccID(0);
 
                             if (state == MapleClient.LOGIN_LOGGEDIN) {
+                                FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + " error 7", false);
                                 c.disconnect(true, false);
                             } else {
                                 c.announce(MaplePacketCreator.getAfterLoginError(7));
@@ -207,6 +213,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                 } else {
                     c.setPlayer(null);
                     c.setAccID(0);
+                    FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + " error 10", false);
                     c.announce(MaplePacketCreator.getAfterLoginError(10));
                     return;
                 }
@@ -438,6 +445,7 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                 c.releaseClient();
             }
         } else {
+            FilePrinter.print(FilePrinter.SESSION, "IoSession with " + c.getAccountName() + "error 10 - 2 ", false);
             c.announce(MaplePacketCreator.getAfterLoginError(10));
         }
     }
