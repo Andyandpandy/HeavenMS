@@ -198,7 +198,7 @@ server:
     LOGIN_ATTEMPT_DURATION: 120         #Period in seconds the login attempt remains registered on the system.
 
     #Ip Configuration
-    HOST: 35.178.150.5
+    HOST: 3.8.158.19                # SET IP SO WHEN ATTEMPTING TO ACCESS CHANNEL THE SERVER IP IS SENT CORRECTLY TO THE CLIENT
     LOCALSERVER: true
     GMSERVER: false
 
